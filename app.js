@@ -2,7 +2,15 @@ var express = require('express');
 var swig = require('swig');
 var app = express();
 var http = require('http');
-var locals = require('./testTemplate');
+//var locals = require('./testTemplate');
+
+var routes = require('./routes/');
+
+
+app.use(express.static(__dirname + '/public'));
+app.use('/', routes);
+
+
 
 //To take out when site is "live":
 swig.setDefaults({ cache: false });
@@ -11,28 +19,30 @@ app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 
-app.get('/news', function (req, res) {
-  res.send('Trump v. Clinton. FML.');
-});
-
-app.get('/', function (req, res) {	
-	res.render('index', {people: locals.people, title: locals.title});
-});
 
 
+// app.get('/news', function (req, res) {
+//   res.send('Trump v. Clinton. FML.');
+// });
 
-app.use("/special/*", function(req, res, next){
-	console.log("you are in the special place");
-	next();
-});
+// app.get('/', function (req, res) {	
+// 	res.render('index', {people: locals.people, title: locals.title});
+// });
 
 
 
-app.use( function(req, res, next){
-	console.log('Guess what? It\'s gonna be May');
-	next();
+// app.use("/special/*", function(req, res, next){
+// 	console.log("you are in the special place");
+// 	next();
+// });
 
-});
+
+
+// app.use( function(req, res, next){
+// 	console.log('Guess what? It\'s gonna be May');
+// 	next();
+
+// });
 
 
 
